@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>CHESSIO ($CHESSIO) • The Cutest King Memecoin on MegaETH | Play Mini Chess</title>
+    <meta name="description" content="Chessio ($CHESSIO) is the cutest chess king memecoin on MegaETH. Fair launch on Kumbaya.xyz. Play the official mini chess game, join the community, and checkmate the bears! Follow @chessiooxyz for launch updates.">
+    <meta name="keywords" content="Chessio, $CHESSIO, memecoin, MegaETH memecoin, Kumbaya.xyz, chess memecoin, cute king crypto, play mini chess, fair launch crypto">
+    <meta name="author" content="Chessio Community">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    
+    <!-- Mobile SEO & PWA -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Open Graph / Facebook / Discord -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CHESSIO ($CHESSIO) • The Cutest King Memecoin on MegaETH">
+    <meta property="og:description" content="The ultimate cute chess king memecoin. Fair launch on Kumbaya.xyz (MegaETH). Play mini chess, crown your bags & checkmate the market!">
+    <meta property="og:image" content="https://i.imgur.com/SSNK7Cb.jpg">
+    <meta property="og:image:width" content="400">
+    <meta property="og:image:height" content="400">
+    <meta property="og:image:alt" content="Chessio - Cute pink-cheeked chess king mascot for $CHESSIO memecoin">
+    <meta property="og:url" content="https://chessio.xyz">
+    <meta property="og:site_name" content="Chessio Memecoin">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter / X Card (critical for crypto community) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@chessiooxyz">
+    <meta name="twitter:creator" content="@chessiooxyz">
+    <meta name="twitter:title" content="CHESSIO ($CHESSIO) • Cutest King Memecoin on MegaETH">
+    <meta name="twitter:description" content="Play mini chess & launch the cutest memecoin on MegaETH via Kumbaya.xyz. Follow for fair launch updates!">
+    <meta name="twitter:image" content="https://i.imgur.com/SSNK7Cb.jpg">
+    <meta name="twitter:image:alt" content="Chessio cute chess king logo - $CHESSIO memecoin">
+    
+    <!-- Canonical & Preconnect for Performance (Mobile Core Web Vitals) -->
+    <link rel="canonical" href="https://chessio.xyz">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap');
+        
+        :root {
+            --pink: #ff69b4;
+            --gold: #ffd700;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'system-ui', -apple-system, sans-serif;
+        }
+        
+        .chess-font {
+            font-family: 'Press Start 2P', system-ui;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #fff, #ff69b4, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+        }
+        
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        .nav-active {
+            color: #ff69b4;
+            border-bottom: 2px solid #ff69b4;
+        }
+        
+        .chess-square {
+            aspect-ratio: 1 / 1;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.1rem, 3.8vw, 2rem);
+            cursor: pointer;
+            transition: all 0.1s ease;
+            position: relative;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .chess-square:active {
+            transform: scale(0.9);
+            z-index: 20;
+        }
+        
+        .chess-square.light {
+            background: #f0d9b5;
+        }
+        
+        .chess-square.dark {
+            background: #b58863;
+        }
+        
+        .chess-square.highlight {
+            box-shadow: inset 0 0 0 4px #22c55e;
+            z-index: 10;
+        }
+        
+        .chess-square.selected {
+            box-shadow: inset 0 0 0 4px #3b82f6;
+            z-index: 10;
+        }
+        
+        .chess-piece {
+            transition: transform 0.2s ease;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.6));
+        }
+        
+        .chess-square:hover .chess-piece {
+            transform: scale(1.15);
+        }
+        
+        .meme-gradient {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+        }
+        
+        .king-float {
+            animation: kingFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes kingFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .pixel-border {
+            border: 4px solid #fff;
+            box-shadow: 0 0 0 4px #000;
+        }
+        
+        .stat-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px) rotate(1deg);
+            box-shadow: 0 25px 50px -12px rgb(255 105 180 / 0.25);
+        }
+        
+        .chess-board-container {
+            box-shadow: 0 0 60px rgba(255, 105, 180, 0.4),
+                        0 25px 50px -12px rgb(0 0 0 / 0.4);
+            border: 8px solid #fff;
+        }
+        
+        .fun-fact {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .nav-link {
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            color: #ff69b4;
+            transform: translateY(-2px);
+        }
+        
+        .memecoin-glow {
+            text-shadow: 0 0 20px #ff69b4,
+                        0 0 40px #ffd700;
+        }
+        
+        .piece-white { color: #f8f8f8; text-shadow: 2px 2px 0 #333; }
+        .piece-black { color: #222; text-shadow: 1px 1px 0 #fff; }
+    </style>
+    
+    <!-- Structured Data / Schema.org for SEO (Rich Results) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Chessio",
+        "alternateName": "$CHESSIO",
+        "url": "https://chessio.xyz",
+        "logo": "https://i.imgur.com/SSNK7Cb.jpg",
+        "description": "The cutest chess king memecoin on MegaETH. Fair launch on Kumbaya.xyz with official mini chess game.",
+        "sameAs": [
+            "https://x.com/chessiooxyz"
+        ],
+        "foundingDate": "2026",
+        "brand": {
+            "@type": "Brand",
+            "name": "Chessio",
+            "logo": "https://i.imgur.com/SSNK7Cb.jpg"
+        }
+    }
+    </script>
+    
+    <!-- Additional Token Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Chessio Token ($CHESSIO)",
+        "description": "Community-driven memecoin featuring the adorable chess king mascot. Launched on MegaETH via Kumbaya.xyz launchpad.",
+        "brand": {
+            "@type": "Brand",
+            "name": "Chessio"
+        },
+        "offers": {
+            "@type": "Offer",
+            "availability": "https://schema.org/PreOrder",
+            "priceCurrency": "ETH",
+            "price": "0",
+            "url": "https://www.kumbaya.xyz/"
+        }
+    }
+    </script>
+</head>
+<body class="bg-[#0a0a0a] text-white overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-lg border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-12 h-12 rounded-2xl overflow-hidden border-2 border-[#ff69b4] shadow-[0_0_20px_#ff69b4]">
+                        <img src="https://i.imgur.com/SSNK7Cb.jpg" alt="Chessio - Cute Chess King Mascot for $CHESSIO memecoin on MegaETH" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <div class="font-black text-3xl tracking-tighter chess-font">CHESSIO</div>
+                        <div class="text-[10px] text-[#ff69b4] -mt-1 tracking-[3px]">THE KING OF MEMES</div>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="#about" class="nav-link">ABOUT</a>
+                    <a href="#tokenomics" class="nav-link">TOKENOMICS</a>
+                    <a href="#game" class="nav-link text-[#ff69b4]">MINI CHESS</a>
+                    <a href="#roadmap" class="nav-link">ROADMAP</a>
+                </div>
+                
+                <div class="flex items-center gap-x-4">
+                    <!-- Social -->
+                    <a href="https://x.com/chessiooxyz" target="_blank" 
+                       class="flex items-center gap-x-2 px-4 py-2 rounded-2xl border border-white/20 hover:border-[#ff69b4] transition-colors text-sm">
+                        <i class="fab fa-x-twitter text-lg"></i>
+                        <span class="hidden md:inline">@chessiooxyz</span>
+                    </a>
+                    
+                    <!-- Launch Button -->
+                    <a href="https://www.kumbaya.xyz/" target="_blank"
+                       class="px-6 py-2.5 bg-[#ff69b4] hover:bg-[#ff1493] text-black font-bold rounded-2xl flex items-center gap-x-2 text-sm transition-all active:scale-95">
+                        <i class="fas fa-rocket"></i>
+                        <span>LAUNCH ON KUMBAYA</span>
+                    </a>
+                    
+                    <!-- Mobile Menu -->
+                    <button class="md:hidden w-10 h-10 flex items-center justify-center text-xl" id="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- HERO -->
+    <div class="pt-20 min-h-[100dvh] flex items-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(#ffffff10_1px,transparent_1px)] bg-[length:4px_4px]"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+            <!-- Logo -->
+            <div class="flex justify-center mb-8">
+                <div class="relative">
+                    <div class="w-56 h-56 md:w-72 md:h-72 rounded-[4rem] overflow-hidden border-[12px] border-white shadow-[0_0_80px_#ff69b4,0_0_120px_#ffd700] king-float">
+                        <img src="https://i.imgur.com/SSNK7Cb.jpg" alt="Chessio the Cute Pink-Cheeked Chess King Mascot - $CHESSIO Memecoin" class="w-full h-full object-cover" loading="eager">
+                    </div>
+                    <!-- Crown sparkle -->
+                    <div class="absolute -top-4 -right-4 text-5xl animate-bounce">👑</div>
+                    <div class="absolute -bottom-2 -left-4 text-4xl">♟️</div>
+                </div>
+            </div>
+            
+            <h1 class="text-6xl sm:text-7xl md:text-[92px] font-black tracking-tighter leading-none mb-4 chess-font">
+                CHESSIO
+            </h1>
+            <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ff69b4] mb-6 tracking-tight">THE CUTEST KING IN CRYPTO</div>
+            
+            <p class="max-w-md mx-auto text-xl text-white/70 mb-10">
+                Checkmate the market.<br>
+                Crown your bags.<br>
+                <span class="text-[#ffd700]">Powered by MegaETH • Launched on Kumbaya.xyz</span>
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="document.getElementById('game').scrollIntoView({ behavior: 'smooth' })" 
+                        class="group px-10 py-4 bg-white text-black font-bold text-lg rounded-3xl flex items-center gap-x-3 hover:scale-105 transition-all shadow-xl active:scale-95">
+                    <span>♟️ PLAY MINI CHESS</span>
+                    <i class="fas fa-arrow-right group-hover:translate-x-1 transition"></i>
+                </button>
+                
+                <a href="https://www.kumbaya.xyz/" target="_blank"
+                   class="px-10 py-4 border-2 border-[#ff69b4] hover:bg-[#ff69b4]/10 font-bold text-lg rounded-3xl flex items-center gap-x-3 transition-all active:scale-95">
+                    <i class="fas fa-chart-line"></i>
+                    <span>TRADE ON KUMBAYA</span>
+                </a>
+            </div>
+            
+            <div class="mt-12 flex justify-center gap-x-8 text-sm opacity-60">
+                <div class="flex items-center gap-x-2">
+                    <i class="fas fa-globe text-[#ff69b4]"></i>
+                    <span>MegaETH Mainnet</span>
+                </div>
+                <div class="flex items-center gap-x-2">
+                    <i class="fas fa-users text-[#ffd700]"></i>
+                    <span>Community First</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-xs tracking-widest opacity-50">
+            <div>SCROLL TO EXPLORE</div>
+            <i class="fas fa-chevron-down mt-1 animate-bounce"></i>
+        </div>
+    </div>
+    
+    <!-- ABOUT -->
+    <div id="about" class="max-w-5xl mx-auto px-6 py-16 md:py-24 border-t border-white/10">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <div class="inline-flex items-center gap-x-2 px-4 py-1 rounded-full bg-white/5 text-sm mb-6">
+                    <div class="w-2 h-2 bg-[#ff69b4] rounded-full animate-pulse"></div>
+                    <span>ORIGIN STORY</span>
+                </div>
+                
+                <h2 class="section-title mb-8">Meet Chessio,<br>the King of Memes</h2>
+                
+                <div class="space-y-6 text-lg text-white/80">
+                    <p>Chessio isn't your average chess piece. He's the pink-cheeked, cross-eyed, eternally smiling king who escaped the 64 squares and entered the blockchain.</p>
+                    
+                    <p>Born from pure love for chess strategy and memecoin chaos, Chessio brings <span class="text-[#ff69b4] font-semibold">fun, community, and alpha</span> to the fastest chain in crypto — <span class="font-bold text-white">MegaETH</span>.</p>
+                    
+                    <p>Whether you're a grandmaster or just here for the vibes, Chessio is your ticket to the most strategic memecoin launch of 2026.</p>
+                </div>
+                
+                <div class="mt-8 flex items-center gap-x-4">
+                    <div class="px-5 py-2 bg-white/5 rounded-2xl text-sm flex items-center gap-x-2">
+                        <i class="fas fa-chess-king text-[#ffd700]"></i>
+                        <span>Official Mascot</span>
+                    </div>
+                    <div class="text-xs text-white/50">Fair Launch • 0 Tax • Community Owned</div>
+                </div>
+            </div>
+            
+            <div class="relative">
+                <div class="meme-gradient rounded-3xl p-8 border border-white/10">
+                    <div class="flex justify-center mb-6">
+                        <div class="text-[120px] drop-shadow-[0_0_30px_#ff69b4]">♔</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold mb-2">"Checkmate, bears!"</div>
+                        <div class="text-sm text-white/60">— Chessio, after every green candle</div>
+                    </div>
+                </div>
+                
+                <!-- Floating badges -->
+                <div class="absolute -top-4 -right-4 bg-black border border-[#ff69b4] px-4 py-1 rounded-2xl text-xs flex items-center gap-x-1.5">
+                    <i class="fas fa-tachometer-alt text-[#ff69b4]"></i>
+                    <span class="font-mono">100k TPS</span>
+                </div>
+                <div class="absolute -bottom-4 -left-4 bg-black border border-[#ffd700] px-4 py-1 rounded-2xl text-xs flex items-center gap-x-1.5">
+                    <span>REAL-TIME</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- TOKENOMICS -->
+    <div id="tokenomics" class="bg-black border-y border-white/10 py-16 md:py-20">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="text-[#ff69b4] text-sm tracking-[3px] font-medium mb-3">THE NUMBERS</div>
+                <h2 class="section-title">Tokenomics</h2>
+                <p class="mt-3 text-white/60 max-w-xs mx-auto">Built for the community. Designed for the moon.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="stat-card bg-zinc-900 border border-white/10 rounded-3xl p-8">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <div class="text-5xl font-black">1B</div>
+                            <div class="text-sm text-white/60 mt-1">TOTAL SUPPLY</div>
+                        </div>
+                        <i class="fas fa-globe text-4xl text-[#ff69b4]"></i>
+                    </div>
+                    <div class="h-1 bg-gradient-to-r from-[#ff69b4] to-[#ffd700] rounded-full"></div>
+                    <div class="mt-6 text-xs text-white/50">100% circulating on launch</div>
+                </div>
+                
+                <div class="stat-card bg-zinc-900 border border-white/10 rounded-3xl p-8">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <div class="text-5xl font-black">0%</div>
+                            <div class="text-sm text-white/60 mt-1">BUY / SELL TAX</div>
+                        </div>
+                        <i class="fas fa-handshake text-4xl text-[#ffd700]"></i>
+                    </div>
+                    <div class="h-1 bg-gradient-to-r from-[#ffd700] to-[#ff69b4] rounded-full"></div>
+                    <div class="mt-6 text-xs text-white/50">Pure fair launch energy</div>
+                </div>
+                
+                <div class="stat-card bg-zinc-900 border border-white/10 rounded-3xl p-8">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <div class="text-5xl font-black">100%</div>
+                            <div class="text-sm text-white/60 mt-1">LIQUIDITY</div>
+                        </div>
+                        <i class="fas fa-lock text-4xl text-emerald-400"></i>
+                    </div>
+                    <div class="h-1 bg-gradient-to-r from-emerald-400 to-[#ff69b4] rounded-full"></div>
+                    <div class="mt-6 text-xs text-white/50">Locked forever on Kumbaya</div>
+                </div>
+            </div>
+            
+            <div class="mt-8 bg-zinc-900 border border-white/10 rounded-3xl p-8 text-center">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-x-8 gap-y-4 text-sm">
+                    <div class="flex items-center gap-x-3">
+                        <div class="px-4 py-1.5 bg-white/5 rounded-2xl font-mono text-xs">CONTRACT</div>
+                        <div class="font-mono text-[#ff69b4]">TBA — WATCH @chessiooxyz</div>
+                    </div>
+                    <div class="hidden md:block w-px h-5 bg-white/20"></div>
+                    <div class="text-white/60">MegaETH • Kumbaya.xyz Launchpad</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MINI CHESS GAME -->
+    <div id="game" class="max-w-5xl mx-auto px-6 py-16 md:py-24">
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center gap-x-2 px-5 py-1.5 rounded-full bg-[#ff69b4]/10 text-[#ff69b4] text-sm mb-4">
+                <i class="fas fa-chess"></i>
+                <span>INTERACTIVE EXPERIENCE</span>
+            </div>
+            <h2 class="section-title">Chessio's Mini Chess Arena</h2>
+            <p class="mt-3 text-lg text-white/70 max-w-md mx-auto">The official mini chess experience. Play local 2-player or challenge a friend. First to capture the king wins!</p>
+        </div>
+        
+        <div class="max-w-[520px] mx-auto">
+            <!-- Game Header -->
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 px-1 gap-y-3">
+                <div class="flex items-center gap-x-3">
+                    <div id="turn-indicator" 
+                         class="px-4 sm:px-5 py-1.5 bg-white/5 rounded-2xl flex items-center gap-x-2 text-xs sm:text-sm font-medium">
+                        <div class="w-3 h-3 bg-white rounded-full animate-pulse"></div>
+                        <span id="turn-text">WHITE'S TURN</span>
+                    </div>
+                </div>
+                
+                <div class="flex gap-x-2 w-full sm:w-auto">
+                    <button onclick="resetGame()" 
+                            class="flex-1 sm:flex-none px-4 py-2.5 text-xs flex items-center justify-center gap-x-2 bg-white/5 hover:bg-white/10 rounded-2xl transition-colors min-h-[44px]">
+                        <i class="fas fa-redo text-xs"></i>
+                        <span>NEW GAME</span>
+                    </button>
+                    <button onclick="makeRandomMove()" 
+                            class="flex-1 sm:flex-none px-4 py-2.5 text-xs flex items-center justify-center gap-x-2 bg-[#ff69b4]/10 hover:bg-[#ff69b4]/20 text-[#ff69b4] rounded-2xl transition-colors min-h-[44px]">
+                        <i class="fas fa-robot"></i>
+                        <span>CHESSIO MOVE</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Chess Board -->
+            <div class="chess-board-container mx-auto rounded-[22px] overflow-hidden bg-black p-3 sm:p-4" style="width: fit-content; max-width: 92vw;">
+                <div id="chessboard" 
+                     class="grid grid-cols-8 gap-0 border-[6px] border-white shadow-inner"
+                     style="width: min(416px, 92vw); height: min(416px, 92vw); max-width: 360px; max-height: 360px;">
+                    <!-- Squares generated by JS -->
+                </div>
+            </div>
+            
+            <div class="mt-5 flex justify-between items-center text-xs px-2">
+                <div class="flex items-center gap-x-4 text-white/50">
+                    <div class="flex items-center gap-x-1.5">
+                        <div class="w-4 h-4 bg-[#f0d9b5]"></div>
+                        <span>Light</span>
+                    </div>
+                    <div class="flex items-center gap-x-1.5">
+                        <div class="w-4 h-4 bg-[#b58863]"></div>
+                        <span>Dark</span>
+                    </div>
+                </div>
+                
+                <div onclick="flipBoard()" class="cursor-pointer flex items-center gap-x-1.5 text-[#ff69b4] hover:text-white transition-colors">
+                    <i class="fas fa-sync-alt"></i>
+                    <span class="text-xs">FLIP BOARD</span>
+                </div>
+            </div>
+            
+            <!-- Status -->
+            <div id="game-status" class="mt-4 text-center text-sm text-white/60 min-h-[24px]">
+                Click a piece to select • Click highlighted square to move
+            </div>
+        </div>
+    </div>
+    
+    <!-- ROADMAP -->
+    <div id="roadmap" class="bg-zinc-950 border-t border-white/10 py-16 md:py-20">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="section-title">The Royal Roadmap</h2>
+                <p class="text-white/60 mt-2">From pawn to king — one checkmate at a time</p>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-zinc-900 border border-white/10 rounded-3xl p-8 relative">
+                    <div class="absolute -top-3 -right-3 bg-[#ffd700] text-black text-xs font-bold px-3 py-1 rounded-full">PHASE 1</div>
+                    <div class="text-4xl mb-6">♟️</div>
+                    <div class="font-bold text-xl mb-3">LAUNCH</div>
+                    <ul class="space-y-2 text-sm text-white/70">
+                        <li class="flex items-center gap-x-2"><i class="fas fa-check text-emerald-400 text-xs"></i> Fair launch on Kumbaya.xyz</li>
+                        <li class="flex items-center gap-x-2"><i class="fas fa-check text-emerald-400 text-xs"></i> MegaETH mainnet</li>
+                        <li class="flex items-center gap-x-2"><i class="fas fa-check text-emerald-400 text-xs"></i> 0/0 tax • LP locked</li>
+                        <li class="flex items-center gap-x-2"><i class="fas fa-check text-emerald-400 text-xs"></i> Community takeover</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-zinc-900 border border-white/10 rounded-3xl p-8 relative">
+                    <div class="absolute -top-3 -right-3 bg-[#ff69b4] text-white text-xs font-bold px-3 py-1 rounded-full">PHASE 2</div>
+                    <div class="text-4xl mb-6">🏆</div>
+                    <div class="font-bold text-xl mb-3">GROWTH</div>
+                    <ul class="space-y-2 text-sm text-white/70">
+                        <li class="flex items-center gap-x-2"><i class="far fa-circle text-xs"></i> Chessio Mini Chess v2</li>
+                        <li class="flex items-center gap-x-2"><i class="far fa-circle text-xs"></i> 10K+ holders campaign</li>
+                        <li class="flex items-center gap-x-2"><i class="far fa-circle text-xs"></i> First CEX listing</li>
+                        <li class="flex items-center gap-x-2"><i class="far fa-circle text-xs"></i> Meme contest + merch drop</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-zinc-900 border border-white/10 rounded-3xl p-8 relative">
+                    <div class="absolute -top-3 -right-3 bg-[#ffd700] text-black text-xs font-bold px-3 py-1 rounded-full">PHASE 3</div>
+                    <div class="text-4xl mb-6">🌍</div>
+                    <div class="font-bold text-xl mb-3">EXPANSION</div>
+                    <ul class="space-y-2 text-sm text-white/70">
+                        <li class="flex items-center gap-x-2"><i class="far fa-circle text-xs"></i> IRL Chessio Chess Tournaments</li>
+                        <li class="flex items-center gap-x-2"><i class="far fa-circle text-xs"></i> Partnerships with chess apps</li>
+                        <li class="flex items-center gap-x-2"><i class="far fa-circle text-xs"></i> NFT collection drop</li>
+                        <li class="flex items-center gap-x-2"><i class="far fa-circle text-xs"></i> MegaETH ecosystem grants</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-zinc-900 border border-white/10 rounded-3xl p-8 relative">
+                    <div class="absolute -top-3 -right-3 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full">PHASE 4</div>
+                    <div class="text-4xl mb-6">👑</div>
+                    <div class="font-bold text-xl mb-3">LEGACY</div>
+                    <ul class="space-y-2 text-sm text-white/70">
+                        <li class="flex items-center gap-x-2"><i class="far fa-circle text-xs"></i> Chessio DAO governance</li>
+                        <li class="flex items-center gap-x-2"><i class="far fa-circle text-xs"></i> Global chess sponsorships</li>
+                        <li class="flex items-center gap-x-2"><i class="far fa-circle text-xs"></i> The ultimate memecoin king</li>
+                        <li class="flex items-center gap-x-2"><i class="far fa-circle text-xs"></i> ...and beyond</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- COMMUNITY / CTA -->
+    <div class="max-w-4xl mx-auto px-6 py-16 md:py-20 text-center">
+        <div class="max-w-lg mx-auto">
+            <div class="text-6xl mb-6">♔</div>
+            <h3 class="text-4xl font-black mb-4">Ready to join the kingdom?</h3>
+            <p class="text-white/70 mb-8">Follow the king on X for launch updates, memes, and alpha.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://x.com/chessiooxyz" target="_blank"
+                   class="flex-1 sm:flex-none px-8 py-4 bg-white text-black font-bold rounded-3xl flex items-center justify-center gap-x-3 hover:bg-[#ff69b4] hover:text-white transition-all">
+                    <i class="fab fa-x-twitter text-xl"></i>
+                    <span>FOLLOW @CHESSIOOXYZ</span>
+                </a>
+                
+                <button onclick="copyCA()" 
+                        class="flex-1 sm:flex-none px-8 py-4 border border-white/30 hover:bg-white/5 rounded-3xl flex items-center justify-center gap-x-3 transition-all">
+                    <i class="fas fa-copy"></i>
+                    <span>COPY CONTRACT (SOON)</span>
+                </button>
+            </div>
+            
+            <div class="mt-10 text-[10px] text-white/40 tracking-widest">
+                DISCLAIMER: $CHESSIO is a pure meme token. This is not financial advice. 
+                Always DYOR. Chessio may cause sudden gains and uncontrollable laughter.
+            </div>
+        </div>
+    </div>
+    
+    <footer class="border-t border-white/10 py-8 text-center text-xs text-white/40">
+        Made with ♟️ &amp; ❤️ for the Chessio community • Not affiliated with any official chess organization<br>
+        © 2026 Chessio — All rights reserved (except the ones we meme)
+    </footer>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent-pink', '#ff69b4');
+            
+            // Mobile menu
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', () => {
+                    const menu = document.createElement('div');
+                    menu.className = 'fixed inset-0 bg-black/95 z-[100] flex flex-col p-8';
+                    menu.innerHTML = `
+                        <div class="flex justify-end">
+                            <button class="text-3xl">&times;</button>
+                        </div>
+                        <div class="flex flex-col gap-y-6 text-2xl mt-12 font-medium">
+                            <a href="#about" class="hover:text-[#ff69b4]">About</a>
+                            <a href="#tokenomics" class="hover:text-[#ff69b4]">Tokenomics</a>
+                            <a href="#game" class="hover:text-[#ff69b4]">Mini Chess</a>
+                            <a href="#roadmap" class="hover:text-[#ff69b4]">Roadmap</a>
+                            <a href="https://x.com/chessiooxyz" target="_blank" class="hover:text-[#ff69b4]">X / Twitter</a>
+                            <a href="https://www.kumbaya.xyz/" target="_blank" class="hover:text-[#ff69b4]">Kumbaya.xyz</a>
+                        </div>
+                    `;
+                    document.body.appendChild(menu);
+                    menu.querySelector('button').onclick = () => menu.remove();
+                    menu.querySelectorAll('a').forEach(a => a.onclick = () => menu.remove());
+                });
+            }
+        }
+        
+        // Chess Game Logic
+        let board = [];
+        let currentTurn = 'w';
+        let selectedSquare = null;
+        let possibleMoves = [];
+        let boardFlipped = false;
+        
+        const pieceSymbols = {
+            'wK': '♔', 'wQ': '♕', 'wR': '♖', 'wB': '♗', 'wN': '♘', 'wP': '♙',
+            'bK': '♚', 'bQ': '♛', 'bR': '♜', 'bB': '♝', 'bN': '♞', 'bP': '♟'
+        };
+        
+        function initBoard() {
+            board = [
+                ['bR', 'bN', 'bB', 'bQ', 'bK', 'bB', 'bN', 'bR'],
+                ['bP', 'bP', 'bP', 'bP', 'bP', 'bP', 'bP', 'bP'],
+                [null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null],
+                ['wP', 'wP', 'wP', 'wP', 'wP', 'wP', 'wP', 'wP'],
+                ['wR', 'wN', 'wB', 'wQ', 'wK', 'wB', 'wN', 'wR']
+            ];
+            currentTurn = 'w';
+            selectedSquare = null;
+            possibleMoves = [];
+            boardFlipped = false;
+        }
+        
+        function renderBoard() {
+            const container = document.getElementById('chessboard');
+            container.innerHTML = '';
+            container.style.gridTemplateColumns = 'repeat(8, 1fr)';
+            
+            // Responsive board size for mobile
+            const maxBoardSize = Math.min(416, Math.floor(window.innerWidth * 0.92));
+            const boardSize = Math.max(280, Math.floor(maxBoardSize / 8) * 8); // min 280px, multiple of 8
+            container.style.width = `${boardSize}px`;
+            container.style.height = `${boardSize}px`;
+            
+            for (let r = 0; r < 8; r++) {
+                for (let c = 0; c < 8; c++) {
+                    const displayRow = boardFlipped ? 7 - r : r;
+                    const displayCol = boardFlipped ? 7 - c : c;
+                    
+                    const square = document.createElement('div');
+                    square.className = `chess-square ${(displayRow + displayCol) % 2 === 0 ? 'light' : 'dark'}`;
+                    square.dataset.row = r;
+                    square.dataset.col = c;
+                    
+                    const piece = board[r][c];
+                    if (piece) {
+                        const pieceEl = document.createElement('div');
+                        pieceEl.className = `chess-piece ${piece[0] === 'w' ? 'piece-white' : 'piece-black'}`;
+                        pieceEl.textContent = pieceSymbols[piece];
+                        square.appendChild(pieceEl);
+                    }
+                    
+                    // Highlight selected
+                    if (selectedSquare && selectedSquare.row === r && selectedSquare.col === c) {
+                        square.classList.add('selected');
+                    }
+                    
+                    // Highlight possible moves
+                    const isPossible = possibleMoves.some(m => m.row === r && m.col === c);
+                    if (isPossible) {
+                        square.classList.add('highlight');
+                    }
+                    
+                    square.addEventListener('click', () => handleSquareClick(r, c));
+                    container.appendChild(square);
+                }
+            }
+            
+            updateTurnIndicator();
+        }
+        
+        function updateTurnIndicator() {
+            const indicator = document.getElementById('turn-indicator');
+            const text = document.getElementById('turn-text');
+            
+            if (currentTurn === 'w') {
+                indicator.style.background = 'rgba(255,255,255,0.1)';
+                indicator.style.border = '1px solid #fff';
+                text.innerHTML = `<span class="text-white">WHITE'S TURN</span>`;
+                text.style.color = '#fff';
+            } else {
+                indicator.style.background = 'rgba(34, 197, 94, 0.15)';
+                indicator.style.border = '1px solid #22c55e';
+                text.innerHTML = `<span class="text-emerald-400">BLACK'S TURN</span>`;
+                text.style.color = '#22c55e';
+            }
+        }
+        
+        function getPossibleMoves(row, col) {
+            const piece = board[row][col];
+            if (!piece) return [];
+            
+            const color = piece[0];
+            const type = piece[1];
+            let moves = [];
+            
+            const directions = {
+                'N': [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]],
+                'B': [[-1, -1], [-1, 1], [1, -1], [1, 1]],
+                'R': [[-1, 0], [1, 0], [0, -1], [0, 1]],
+                'Q': [[-1, -1], [-1, 1], [1, -1], [1, 1], [-1, 0], [1, 0], [0, -1], [0, 1]],
+                'K': [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
+            };
+            
+            if (type === 'P') {
+                const dir = color === 'w' ? -1 : 1;
+                const startRow = color === 'w' ? 6 : 1;
+                
+                // Forward
+                if (isValidSquare(row + dir, col) && !board[row + dir][col]) {
+                    moves.push({row: row + dir, col});
+                    
+                    // Double forward from start
+                    if (row === startRow && !board[row + 2 * dir][col]) {
+                        moves.push({row: row + 2 * dir, col});
+                    }
+                }
+                
+                // Captures
+                for (let dc of [-1, 1]) {
+                    const newRow = row + dir;
+                    const newCol = col + dc;
+                    if (isValidSquare(newRow, newCol)) {
+                        const target = board[newRow][newCol];
+                        if (target && target[0] !== color) {
+                            moves.push({row: newRow, col: newCol});
+                        }
+                    }
+                }
+            } else if (type === 'N') {
+                for (let [dr, dc] of directions['N']) {
+                    const nr = row + dr;
+                    const nc = col + dc;
+                    if (isValidSquare(nr, nc)) {
+                        const target = board[nr][nc];
+                        if (!target || target[0] !== color) {
+                            moves.push({row: nr, col: nc});
+                        }
+                    }
+                }
+            } else {
+                // Sliding pieces: Bishop, Rook, Queen, King
+                const dirs = directions[type] || [];
+                
+                for (let [dr, dc] of dirs) {
+                    let nr = row + dr;
+                    let nc = col + dc;
+                    
+                    while (isValidSquare(nr, nc)) {
+                        const target = board[nr][nc];
+                        
+                        if (!target) {
+                            moves.push({row: nr, col: nc});
+                        } else {
+                            if (target[0] !== color) {
+                                moves.push({row: nr, col: nc});
+                            }
+                            break; // Blocked
+                        }
+                        
+                        if (type === 'K') break; // King only 1 square
+                        
+                        nr += dr;
+                        nc += dc;
+                    }
+                }
+            }
+            
+            return moves;
+        }
+        
+        function isValidSquare(row, col) {
+            return row >= 0 && row < 8 && col >= 0 && col < 8;
+        }
+        
+        function handleSquareClick(row, col) {
+            const piece = board[row][col];
+            
+            // If a square is already selected
+            if (selectedSquare) {
+                const isValidMove = possibleMoves.some(m => m.row === row && m.col === col);
+                
+                if (isValidMove) {
+                    // Perform the move
+                    movePiece(selectedSquare.row, selectedSquare.col, row, col);
+                } else {
+                    // Deselect or select new piece
+                    if (piece && piece[0] === currentTurn) {
+                        selectedSquare = {row, col};
+                        possibleMoves = getPossibleMoves(row, col);
+                    } else {
+                        selectedSquare = null;
+                        possibleMoves = [];
+                    }
+                }
+                renderBoard();
+                return;
+            }
+            
+            // No selection yet - select if it's current turn's piece
+            if (piece && piece[0] === currentTurn) {
+                selectedSquare = {row, col};
+                possibleMoves = getPossibleMoves(row, col);
+                renderBoard();
+            }
+        }
+        
+        function movePiece(fromRow, fromCol, toRow, toCol) {
+            const piece = board[fromRow][fromCol];
+            const captured = board[toRow][toCol];
+            
+            // Move
+            board[toRow][toCol] = piece;
+            board[fromRow][fromCol] = null;
+            
+            // Check for king capture (win condition for mini version)
+            if (captured && captured[1] === 'K') {
+                const winner = piece[0] === 'w' ? 'WHITE' : 'BLACK';
+                setTimeout(() => {
+                    showWinModal(winner);
+                }, 300);
+            }
+            
+            // Switch turn
+            currentTurn = currentTurn === 'w' ? 'b' : 'w';
+            
+            // Clear selection
+            selectedSquare = null;
+            possibleMoves = [];
+            
+            // Fun message
+            if (captured) {
+                showCaptureMessage(piece, captured);
+            }
+            
+            renderBoard();
+            
+            // Random Chessio comment
+            if (Math.random() < 0.3) {
+                setTimeout(showChessioComment, 800);
+            }
+        }
+        
+        function showCaptureMessage(attacker, captured) {
+            const status = document.getElementById('game-status');
+            const attackerName = attacker[0] === 'w' ? 'White' : 'Black';
+            const capturedName = captured[1] === 'K' ? 'King' : captured[1];
+            
+            status.innerHTML = `<span class="text-emerald-400 font-medium">${attackerName} captured ${capturedName}!</span>`;
+            
+            setTimeout(() => {
+                if (!selectedSquare) {
+                    status.innerHTML = 'Click a piece to select • Click highlighted square to move';
+                }
+            }, 2200);
+        }
+        
+        function showChessioComment() {
+            const comments = [
+                "Nice move, king! 👑",
+                "Checkmate incoming... or not?",
+                "That was strategic af",
+                "Pawn to E4? Bold choice",
+                "You're playing like a grandmaster!",
+                "Chessio approves ✅",
+                "The king is pleased",
+                "This is why we love chess memes"
+            ];
+            
+            const status = document.getElementById('game-status');
+            const randomComment = comments[Math.floor(Math.random() * comments.length)];
+            
+            status.innerHTML = `<span class="text-[#ff69b4]">♔ Chessio says: "${randomComment}"</span>`;
+            
+            setTimeout(() => {
+                if (!selectedSquare && document.getElementById('game-status')) {
+                    status.innerHTML = 'Click a piece to select • Click highlighted square to move';
+                }
+            }, 2800);
+        }
+        
+        function makeRandomMove() {
+            if (currentTurn !== 'b') {
+                // Force black move or show message
+                const status = document.getElementById('game-status');
+                status.innerHTML = `<span class="text-amber-400">It's not black's turn yet!</span>`;
+                setTimeout(() => {
+                    status.innerHTML = 'Click a piece to select • Click highlighted square to move';
+                }, 1500);
+                return;
+            }
+            
+            // Find all black pieces with legal moves
+            let allMoves = [];
+            
+            for (let r = 0; r < 8; r++) {
+                for (let c = 0; c < 8; c++) {
+                    const piece = board[r][c];
+                    if (piece && piece[0] === 'b') {
+                        const moves = getPossibleMoves(r, c);
+                        moves.forEach(m => {
+                            allMoves.push({fromRow: r, fromCol: c, toRow: m.row, toCol: m.col});
+                        });
+                    }
+                }
+            }
+            
+            if (allMoves.length === 0) {
+                const status = document.getElementById('game-status');
+                status.innerHTML = `<span class="text-red-400">Black has no legal moves!</span>`;
+                return;
+            }
+            
+            // Pick random
+            const randomMove = allMoves[Math.floor(Math.random() * allMoves.length)];
+            
+            // Highlight briefly
+            const container = document.getElementById('chessboard');
+            const fromSquare = Array.from(container.children).find(el => 
+                parseInt(el.dataset.row) === randomMove.fromRow && 
+                parseInt(el.dataset.col) === randomMove.fromCol
+            );
+            
+            if (fromSquare) fromSquare.style.boxShadow = '0 0 0 4px #22c55e';
+            
+            setTimeout(() => {
+                if (fromSquare) fromSquare.style.boxShadow = '';
+                movePiece(randomMove.fromRow, randomMove.fromCol, randomMove.toRow, randomMove.toCol);
+            }, 280);
+        }
+        
+        function showWinModal(winner) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/90 flex items-center justify-center z-[200]';
+            
+            const isWhite = winner === 'WHITE';
+            
+            modal.innerHTML = `
+                <div class="max-w-md w-full mx-4 bg-zinc-900 border border-white/20 rounded-3xl p-10 text-center">
+                    <div class="text-8xl mb-6">${isWhite ? '♔' : '♚'}</div>
+                    
+                    <div class="text-4xl font-black mb-2">${winner} WINS!</div>
+                    <div class="text-xl text-white/70 mb-8">Checkmate! The king has fallen.</div>
+                    
+                    <div class="flex gap-4">
+                        <button onclick="resetGameAndCloseModal(this)" 
+                                class="flex-1 py-4 bg-white text-black font-bold rounded-2xl hover:bg-[#ff69b4] hover:text-white transition-all">
+                            PLAY AGAIN
+                        </button>
+                        <button onclick="this.closest('.fixed').remove()" 
+                                class="flex-1 py-4 border border-white/30 rounded-2xl hover:bg-white/5 transition-all">
+                            CLOSE
+                        </button>
+                    </div>
+                    
+                    <div class="mt-8 text-xs text-white/40">Thanks for playing Chessio Mini Chess!</div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Confetti
+            launchConfetti();
+        }
+        
+        function launchConfetti() {
+            const colors = ['#ff69b4', '#ffd700', '#22c55e', '#3b82f6'];
+            
+            for (let i = 0; i < 80; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-20px';
+                    confetti.style.width = '10px';
+                    confetti.style.height = '10px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.zIndex = '300';
+                    confetti.style.pointerEvents = 'none';
+                    confetti.style.opacity = Math.random() + 0.5;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    const duration = Math.random() * 3000 + 2500;
+                    const angle = Math.random() * 80 + 50;
+                    
+                    confetti.animate([
+                        { 
+                            transform: `translateY(0) rotate(0deg)`,
+                            opacity: confetti.style.opacity 
+                        },
+                        { 
+                            transform: `translateY(${window.innerHeight + 100}px) rotate(${angle * 5}deg)`,
+                            opacity: 0 
+                        }
+                    ], {
+                        duration: duration,
+                        easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)'
+                    }).onfinish = () => confetti.remove();
+                }, i * 3);
+            }
+        }
+        
+        function resetGame() {
+            initBoard();
+            renderBoard();
+            document.getElementById('game-status').innerHTML = 'Click a piece to select • Click highlighted square to move';
+            
+            // Fun reset message
+            const status = document.getElementById('game-status');
+            setTimeout(() => {
+                status.innerHTML = '♟️ New game started! White to move.';
+                setTimeout(() => {
+                    if (!selectedSquare) status.innerHTML = 'Click a piece to select • Click highlighted square to move';
+                }, 1600);
+            }, 100);
+        }
+        
+        function resetGameAndCloseModal(element) {
+            const modal = element.closest('.fixed');
+            if (modal) modal.remove();
+            resetGame();
+        }
+        
+        function flipBoard() {
+            boardFlipped = !boardFlipped;
+            renderBoard();
+            
+            const status = document.getElementById('game-status');
+            status.innerHTML = boardFlipped ? 'Board flipped! Black at bottom.' : 'Board flipped back!';
+            setTimeout(() => {
+                status.innerHTML = 'Click a piece to select • Click highlighted square to move';
+            }, 1400);
+        }
+        
+        function copyCA() {
+            const text = "0xCHESSIO...TBA — Follow @chessiooxyz for contract address!";
+            navigator.clipboard.writeText(text).then(() => {
+                const btns = document.querySelectorAll('button');
+                const originalText = event.currentTarget ? event.currentTarget.innerHTML : '';
+                
+                const toast = document.createElement('div');
+                toast.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 bg-emerald-600 text-white px-6 py-3 rounded-2xl flex items-center gap-x-2 shadow-xl text-sm z-[300]';
+                toast.innerHTML = `<i class="fas fa-check"></i> <span>Contract info copied! Watch X for real CA.</span>`;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.style.transition = 'all 0.3s';
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translate(-50%, 20px)';
+                    setTimeout(() => toast.remove(), 300);
+                }, 2200);
+            }).catch(() => {
+                alert("Contract: TBA on MegaETH via Kumbaya.xyz\nFollow @chessiooxyz for updates!");
+            });
+        }
+        
+        function initializeChessGame() {
+            initBoard();
+            renderBoard();
+            
+            // Initial status message
+            setTimeout(() => {
+                const status = document.getElementById('game-status');
+                if (status) {
+                    status.innerHTML = '♟️ Welcome to Chessio Mini Chess! White moves first.';
+                    setTimeout(() => {
+                        if (status && !selectedSquare) {
+                            status.innerHTML = 'Click a piece to select • Click highlighted square to move';
+                        }
+                    }, 2200);
+                }
+            }, 800);
+            
+            // Responsive: re-render board on window resize (orientation change)
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (document.getElementById('chessboard')) {
+                        renderBoard();
+                    }
+                }, 200);
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'r' || e.key === 'R') {
+                    resetGame();
+                }
+                if (e.key === 'f' || e.key === 'F') {
+                    flipBoard();
+                }
+                if (e.key === '?' ) {
+                    makeRandomMove();
+                }
+            });
+            
+            // Easter egg: click logo in nav to trigger confetti
+            const navLogo = document.querySelector('nav img');
+            if (navLogo) {
+                navLogo.style.cursor = 'pointer';
+                navLogo.addEventListener('click', () => {
+                    launchConfetti();
+                    const orig = navLogo.style.transform;
+                    navLogo.style.transition = 'transform 0.6s cubic-out';
+                    navLogo.style.transform = 'rotate(360deg) scale(1.3)';
+                    setTimeout(() => {
+                        navLogo.style.transform = orig || 'scale(1)';
+                    }, 650);
+                });
+            }
+            
+            console.log('%c[Chessio] Mini Chess initialized successfully! Press R to reset, F to flip, ? for random move.', 'color:#666');
+        }
+        
+        // Main initialization
+        function initializeWebsite() {
+            initializeTailwind();
+            initializeChessGame();
+            
+            // Smooth scroll for nav links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+            
+            // Random fun fact in console
+            console.log('%c[Chessio] Website ready. The king has entered the chat. 👑', 'color:#ff69b4; font-size:9px');
+            
+            // Preload hint
+            setTimeout(() => {
+                const hero = document.querySelector('.king-float');
+                if (hero) hero.style.transition = 'transform 3s ease-in-out';
+            }, 1000);
+        }
+        
+        // Boot everything
+        window.onload = initializeWebsite;
+        
+        // Bonus: Konami code for extra confetti
+        let konamiCode = [];
+        const konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        document.addEventListener('keydown', function(e) {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+            
+            if (konamiCode.join('') === konami.join('')) {
+                launchConfetti();
+                const status = document.getElementById('game-status');
+                if (status) status.innerHTML = '🎉 KONAMI ACTIVATED — CHESSIO APPROVES!';
+                setTimeout(() => {
+                    if (status) status.innerHTML = 'Click a piece to select • Click highlighted square to move';
+                }, 3000);
+                konamiCode = [];
+            }
+        });
+    </script>
+</body>
+</html
