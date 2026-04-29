@@ -224,7 +224,7 @@
             "availability": "https://schema.org/PreOrder",
             "priceCurrency": "ETH",
             "price": "0",
-            "url": "https://www.kumbaya.xyz/"
+            "url": "https://kumbaya.xyz/#/token/0x1Ef2DF41a609131bd3a68adAB3368E5091AE4069-4326"
         }
     }
     </script>
@@ -262,10 +262,10 @@
                     </a>
                     
                     <!-- Launch Button -->
-                    <a href="https://www.kumbaya.xyz/" target="_blank"
+                    <a href="https://kumbaya.xyz/#/token/0x1Ef2DF41a609131bd3a68adAB3368E5091AE4069-4326" target="_blank"
                        class="px-6 py-2.5 bg-[#ff69b4] hover:bg-[#ff1493] text-black font-bold rounded-2xl flex items-center gap-x-2 text-sm transition-all active:scale-95">
                         <i class="fas fa-rocket"></i>
-                        <span>LAUNCH ON KUMBAYA</span>
+                        <span>TRADE $CHESSIO</span>
                     </a>
                     
                     <!-- Mobile Menu -->
@@ -312,7 +312,7 @@
                     <i class="fas fa-arrow-right group-hover:translate-x-1 transition"></i>
                 </button>
                 
-                <a href="https://www.kumbaya.xyz/" target="_blank"
+                <a href="https://kumbaya.xyz/#/token/0x1Ef2DF41a609131bd3a68adAB3368E5091AE4069-4326" target="_blank"
                    class="px-10 py-4 border-2 border-[#ff69b4] hover:bg-[#ff69b4]/10 font-bold text-lg rounded-3xl flex items-center gap-x-3 transition-all active:scale-95">
                     <i class="fas fa-chart-line"></i>
                     <span>TRADE ON KUMBAYA</span>
@@ -441,7 +441,7 @@
                 <div class="flex flex-col md:flex-row items-center justify-center gap-x-8 gap-y-4 text-sm">
                     <div class="flex items-center gap-x-3">
                         <div class="px-4 py-1.5 bg-white/5 rounded-2xl font-mono text-xs">CONTRACT</div>
-                        <div class="font-mono text-[#ff69b4]">TBA — WATCH @chessiooxyz</div>
+                        <div onclick="copyCA()" class="font-mono text-[#ff69b4] cursor-pointer hover:underline">0x1Ef2DF41...AE4069</div>
                     </div>
                     <div class="hidden md:block w-px h-5 bg-white/20"></div>
                     <div class="text-white/60">MegaETH • Kumbaya.xyz Launchpad</div>
@@ -597,7 +597,7 @@
                 <button onclick="copyCA()" 
                         class="flex-1 sm:flex-none px-8 py-4 border border-white/30 hover:bg-white/5 rounded-3xl flex items-center justify-center gap-x-3 transition-all">
                     <i class="fas fa-copy"></i>
-                    <span>COPY CONTRACT (SOON)</span>
+                    <span>COPY CONTRACT</span>
                 </button>
             </div>
             
@@ -635,7 +635,7 @@
                             <a href="#game" class="hover:text-[#ff69b4]">Mini Chess</a>
                             <a href="#roadmap" class="hover:text-[#ff69b4]">Roadmap</a>
                             <a href="https://x.com/chessiooxyz" target="_blank" class="hover:text-[#ff69b4]">X / Twitter</a>
-                            <a href="https://www.kumbaya.xyz/" target="_blank" class="hover:text-[#ff69b4]">Kumbaya.xyz</a>
+                            <a href="https://kumbaya.xyz/#/token/0x1Ef2DF41a609131bd3a68adAB3368E5091AE4069-4326" target="_blank" class="hover:text-[#ff69b4]">Trade on Kumbaya</a>
                         </div>
                     `;
                     document.body.appendChild(menu);
@@ -1088,14 +1088,11 @@
         }
         
         function copyCA() {
-            const text = "0xCHESSIO...TBA — Follow @chessiooxyz for contract address!";
-            navigator.clipboard.writeText(text).then(() => {
-                const btns = document.querySelectorAll('button');
-                const originalText = event.currentTarget ? event.currentTarget.innerHTML : '';
-                
+            const ca = "0x1Ef2DF41a609131bd3a68adAB3368E5091AE4069";
+            navigator.clipboard.writeText(ca).then(() => {
                 const toast = document.createElement('div');
                 toast.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 bg-emerald-600 text-white px-6 py-3 rounded-2xl flex items-center gap-x-2 shadow-xl text-sm z-[300]';
-                toast.innerHTML = `<i class="fas fa-check"></i> <span>Contract info copied! Watch X for real CA.</span>`;
+                toast.innerHTML = `<i class="fas fa-check"></i> <span>Contract copied! 0x1Ef2DF41...4069</span>`;
                 document.body.appendChild(toast);
                 
                 setTimeout(() => {
@@ -1105,7 +1102,14 @@
                     setTimeout(() => toast.remove(), 300);
                 }, 2200);
             }).catch(() => {
-                alert("Contract: TBA on MegaETH via Kumbaya.xyz\nFollow @chessiooxyz for updates!");
+                // Fallback for older browsers
+                const input = document.createElement('input');
+                input.value = ca;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                alert("Contract Address copied: 0x1Ef2DF41a609131bd3a68adAB3368E5091AE4069");
             });
         }
         
@@ -1217,4 +1221,4 @@
         });
     </script>
 </body>
-</html
+</html>
