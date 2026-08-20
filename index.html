@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chessio King | $uCHESS</title>
+  <meta name="description" content="Chessio King — 5,000 unique onchain kings. $uCHESS on µToken. CA Soon." />
+  <link rel="icon" href="https://i.imgur.com/5ChichQ.jpg" type="image/jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050508;
+      --bg-2: #0a0a12;
+      --card: #0f0f18;
+      --border: rgba(255, 215, 0, 0.15);
+      --gold: #ffd700;
+      --gold-soft: #e8c547;
+      --green: #3dd68c;
+      --green-dim: #1a7a4c;
+      --pink: #ff2d6a;
+      --text: #e8e8f0;
+      --muted: #8a8a9a;
+      --glow: 0 0 40px rgba(255, 215, 0, 0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Particle canvas */
+    #particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      width: min(1140px, 92%);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 0;
+      background: rgba(5, 5, 8, 0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+      transition: background 0.3s;
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 16px rgba(255, 215, 0, 0.4);
+      object-fit: cover;
+    }
+
+    .logo span {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.04em;
+      background: linear-gradient(90deg, var(--gold), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .badge-exp {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--pink);
+      color: var(--pink);
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.6rem;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-transform: uppercase;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), #c9a227);
+      color: #0a0a08;
+      box-shadow: 0 4px 24px rgba(255, 215, 0, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(255, 215, 0, 0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      color: var(--gold-soft);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      background: rgba(255, 215, 0, 0.08);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 9rem 0 5rem;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .status-line {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      align-items: center;
+    }
+
+    .status-line .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 1.6s infinite;
+    }
+
+    .status-line .highlight {
+      color: var(--green);
+    }
+
+    .status-line .warn {
+      color: var(--gold);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.8rem, 7vw, 4.5rem);
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #fff 20%, var(--gold) 60%, var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .ticker {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.15em;
+    }
+
+    .hero-desc {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 480px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-desc strong {
+      color: var(--text);
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .no-promise {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-frame {
+      position: relative;
+      width: min(340px, 85%);
+      aspect-ratio: 1;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at 50% 40%, rgba(61, 214, 140, 0.12), transparent 60%),
+                  linear-gradient(160deg, #12121c, #0a0a10);
+      box-shadow: var(--glow), inset 0 0 60px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-frame::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 18px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.5), transparent 40%, rgba(61, 214, 140, 0.4));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .hero-frame img {
+      width: 88%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 30px rgba(255, 215, 0, 0.25));
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .corner-label {
+      position: absolute;
+      bottom: 14px;
+      left: 16px;
+      right: 16px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .corner-label span {
+      color: var(--gold-soft);
+    }
+
+    /* Section common */
+    section {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    .section-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      color: var(--pink);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Collection */
+    .collection-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .supply-badge {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      padding: 0.6rem 1.2rem;
+      border: 1px solid rgba(61, 214, 140, 0.35);
+      border-radius: 6px;
+      color: var(--green);
+      background: rgba(61, 214, 140, 0.08);
+    }
+
+    .nft-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .nft-card {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: all 0.35s ease;
+      position: relative;
+    }
+
+    .nft-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 215, 0, 0.35);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.12);
+    }
+
+    .nft-card .img-wrap {
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: #0a0a10;
+      position: relative;
+    }
+
+    .nft-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .nft-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .nft-card .info {
+      padding: 1rem 1.1rem 1.2rem;
+    }
+
+    .nft-card .name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+    }
+
+    .nft-card .rarity {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: linear-gradient(160deg, #12121c, #0c0c14);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 1.75rem 1.5rem;
+      transition: border-color 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(255, 215, 0, 0.25);
+    }
+
+    .feature-icon {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.03em;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* CTA band */
+    .cta-band {
+      text-align: center;
+      padding: 4.5rem 0;
+      background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.07), transparent 70%);
+      border-top: 1px solid rgba(255, 215, 0, 0.08);
+      border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+    }
+
+    .cta-band h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-band p {
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+    }
+
+    .ca-soon {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      padding: 0.5rem 1rem;
+      border: 1px dashed rgba(255, 215, 0, 0.4);
+      border-radius: 4px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 0 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .footer-brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+    }
+
+    .footer-brand span {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .social a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .social a:hover {
+      color: var(--gold);
+    }
+
+    .copyright {
+      width: 100%;
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
+    /* Mobile */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-desc {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .hero-cta {
+        justify-content: center;
+      }
+      .status-line {
+        justify-content: center;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(8, 8, 14, 0.97);
+        padding: 1.5rem;
+        gap: 1.2rem;
+        border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding-top: 7.5rem;
+      }
+      h1 {
+        font-size: 2.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particles"></canvas>
+
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">
+        <img src="https://i.imgur.com/5ChichQ.jpg" alt="Chessio King" />
+        <span>Chessio King</span>
+      </a>
+      <button class="menu-toggle" aria-label="Menu">☰</button>
+      <div class="nav-links">
+        <a href="#collection">Collection</a>
+        <a href="#about">About</a>
+        <a href="https://utoken.gg" target="_blank" rel="noopener">Buy</a>
+        <a href="https://x.com/chessiooxyz" target="_blank" rel="noopener">X</a>
+        <span class="badge-exp">CA Soon</span>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="status-line">
+            <span class="dot"></span>
+            <span>CHESSIO KING · $uCHESS</span>
+            <span>·</span>
+            <span class="highlight">µTOKEN PROTOCOL</span>
+            <span>·</span>
+            <span class="warn">STATUS: CA SOON</span>
+            <span>·</span>
+            <span>MINTING OPENS SOON</span>
+          </div>
+          <h1>CHESSIO<br/>KING</h1>
+          <div class="ticker">$uCHESS</div>
+          <p class="hero-desc">
+            <strong>5,000 unique kings</strong> of the board, generated and crowned onchain.
+            Every piece holds the throne. Every trade moves the game.
+            The crown belongs to those who play.
+          </p>
+          <div class="hero-cta">
+            <a href="https://utoken.gg" target="_blank" rel="noopener" class="btn btn-primary">Buy on µToken</a>
+            <a href="#collection" class="btn btn-outline">View Collection ↓</a>
+          </div>
+          <p class="no-promise">No Roadmap · No Utility · No Promises</p>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-frame">
+            <img src="https://i.imgur.com/5ChichQ.jpg" alt="Chessio King" />
+            <div class="corner-label">
+              <span>specimen · king</span>
+              <span>[legendary]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="collection">
+    <div class="container">
+      <div class="collection-header">
+        <div>
+          <div class="section-label">// Collection</div>
+          <h2 class="section-title">The Royal Court</h2>
+          <p class="section-desc">
+            Eight legendary archetypes. One crown. Infinite games.
+            Each king is a unique onchain sovereign.
+          </p>
+        </div>
+        <div class="supply-badge">SUPPLY · 5,000</div>
+      </div>
+      <div class="nft-grid">
+        <div class="nft-card">
+          <div class="img-wrap"><img src="https://i.imgur.com/atcIjYw.jpg" alt="Aurora King" loading="lazy" /></div>
+          <div class="info">
+            <div class="name">Aurora King</div>
+            <div class="rarity">Northern Lights · Rare</div>
+          </div>
+        </div>
+        <div class="nft-card">
+          <div class="img-wrap"><img src="https://i.imgur.com/Mdudz0q.jpg" alt="Clockwork King" loading="lazy" /></div>
+          <div class="info">
+            <div class="name">Clockwork King</div>
+            <div class="rarity">Steampunk · Rare</div>
+          </div>
+        </div>
+        <div class="nft-card">
+          <div class="img-wrap"><img src="https://i.imgur.com/Xt9uYBP.jpg" alt="Sakura King" loading="lazy" /></div>
+          <div class="info">
+            <div class="name">Sakura King</div>
+            <div class="rarity">Cherry Blossom · Rare</div>
+          </div>
+        </div>
+        <div class="nft-card">
+          <div class="img-wrap"><img src="https://i.imgur.com/WWyilwU.jpg" alt="Castle King" loading="lazy" /></div>
+          <div class="info">
+            <div class="name">Castle King</div>
+            <div class="rarity">Knight · Epic</div>
+          </div>
+        </div>
+        <div class="nft-card">
+          <div class="img-wrap"><img src="https://i.imgur.com/XA492mG.jpg" alt="Street King" loading="lazy" /></div>
+          <div class="info">
+            <div class="name">Street King</div>
+            <div class="rarity">Urban · Rare</div>
+          </div>
+        </div>
+        <div class="nft-card">
+          <div class="img-wrap"><img src="https://i.imgur.com/PQ58V3j.jpg" alt="Cosmic King" loading="lazy" /></div>
+          <div class="info">
+            <div class="name">Cosmic King</div>
+            <div class="rarity">Space · Legendary</div>
+          </div>
+        </div>
+        <div class="nft-card">
+          <div class="img-wrap"><img src="https://i.imgur.com/QQPcSAG.jpg" alt="Inferno King" loading="lazy" /></div>
+          <div class="info">
+            <div class="name">Inferno King</div>
+            <div class="rarity">Volcanic · Epic</div>
+          </div>
+        </div>
+        <div class="nft-card">
+          <div class="img-wrap"><img src="https://i.imgur.com/SryXCqi.jpg" alt="Crystal King" loading="lazy" /></div>
+          <div class="info">
+            <div class="name">Crystal King</div>
+            <div class="rarity">Arcane · Legendary</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-label">// Protocol</div>
+      <h2 class="section-title">Rules of the Board</h2>
+      <p class="section-desc">
+        Chessio King lives fully onchain. No team keys. No hidden moves.
+        The only rule is the game itself.
+      </p>
+      <div class="about-grid">
+        <div class="feature-card">
+          <div class="feature-icon">♔</div>
+          <h3>5,000 Kings</h3>
+          <p>Fixed supply. Each piece is a unique sovereign with its own crown, cloak, and realm.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">♟️</div>
+          <h3>$uCHESS</h3>
+          <p>Trade the token on µToken. Buy the kings. Hold the throne. Move at your own pace.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⛓</div>
+          <h3>Onchain Forever</h3>
+          <p>Art and ownership live on the chain. No offchain promises. Just the board and the pieces.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container">
+      <h2>Claim Your Crown</h2>
+      <p>CA is coming. Be ready when the first move is made.</p>
+      <a href="https://utoken.gg" target="_blank" rel="noopener" class="btn btn-primary">Buy $uCHESS on µToken</a>
+      <div class="ca-soon">CONTRACT ADDRESS · SOON</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="https://i.imgur.com/5ChichQ.jpg" alt="Chessio King" />
+          <span>Chessio King · $uCHESS</span>
+        </div>
+        <div class="social">
+          <a href="https://x.com/chessiooxyz" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            @chessiooxyz
+          </a>
+        </div>
+      </div>
+      <p class="copyright">© 2026 Chessio King. Experimental. No roadmap. No utility. No promises.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const toggle = document.querySelector('.menu-toggle');
+    const links = document.querySelector('.nav-links');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+
+    // Gold Particle System
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class GoldParticle {
+      constructor() {
+        this.reset(true);
+      }
+
+      reset(init) {
+        this.x = Math.random() * w;
+        this.y = init ? Math.random() * h : h + Math.random() * 40;
+        this.size = Math.random() * 2.8 + 0.6;
+        this.baseSize = this.size;
+        this.speedY = Math.random() * 0.55 + 0.12;
+        this.speedX = (Math.random() - 0.5) * 0.35;
+        this.opacity = Math.random() * 0.55 + 0.25;
+        this.baseOpacity = this.opacity;
+        this.twinkleSpeed = Math.random() * 0.04 + 0.015;
+        this.twinklePhase = Math.random() * Math.PI * 2;
+        // Mostly pure gold, some warm gold variants, rare green accent
+        const roll = Math.random();
+        if (roll > 0.88) {
+          this.color = '61, 214, 140'; // soft green accent
+        } else if (roll > 0.55) {
+          this.color = '255, 215, 0';  // classic gold
+        } else if (roll > 0.25) {
+          this.color = '255, 200, 50'; // warm gold
+        } else {
+          this.color = '255, 236, 140'; // light gold / champagne
+        }
+        this.glow = Math.random() > 0.6;
+      }
+
+      update() {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        this.twinklePhase += this.twinkleSpeed;
+
+        // gentle horizontal bounce
+        if (this.x < -20) this.x = w + 20;
+        if (this.x > w + 20) this.x = -20;
+
+        // twinkle opacity & size
+        const twinkle = 0.55 + 0.45 * Math.sin(this.twinklePhase);
+        this.opacity = this.baseOpacity * twinkle;
+        this.size = this.baseSize * (0.85 + 0.25 * twinkle);
+
+        if (this.y < -30) this.reset(false);
+      }
+
+      draw() {
+        // soft glow for larger particles
+        if (this.glow && this.size > 1.6) {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size * 2.8, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${this.color}, ${this.opacity * 0.12})`;
+          ctx.fill();
+        }
+
+        // main particle
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
+        ctx.fill();
+
+        // bright core for sparkle
+        if (this.size > 1.4) {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size * 0.35, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 230, ${this.opacity * 0.7})`;
+          ctx.fill();
+        }
+      }
+    }
+
+    // denser, richer gold field
+    const particleCount = Math.min(110, Math.floor((w * h) / 14000));
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new GoldParticle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
